@@ -1,0 +1,108 @@
+html {
+    font-size: 100%;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: 'PT Sans', sans-serif;
+}
+
+.homePageLeft {
+    //background-image: linear-gradient(to right, #FFFCEC, $orange-pink);
+    background-color: $orange-pink;
+    color: #000000;
+    padding-bottom: 452px;
+    padding-top: 410px;
+    padding-left: 100px;
+    margin-left: -20px;
+    h3 {
+        padding-top: 10px !important;
+    }
+}
+
+.homePageRight {
+    background-image: linear-gradient(to right, $orange-pink, #FFFCEC);
+    margin-left: -31px;
+    padding-bottom: 321px;
+    padding-top: 50px;
+    margin-right: -20px;
+    text-align: center;
+
+}
+h1 {
+    font-weight: bolder;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+.formField {
+    text-align: left;
+    padding-top: 100px;
+}
+.centeredLoginButton {
+    padding-top: 70px;
+    display: block;
+    margin: auto;
+    a {
+        color: #000000;
+    }
+    a:hover {
+        color: #000000;
+    }
+    h2 {
+        padding-bottom: 30px;
+    }
+}
+.btn-primary {
+    color: #ffffff;
+    background-color: lighten($blurred-pink, 4%);
+    border-color: #ffffff;
+    margin-bottom: 50px;
+}
+.btn-primary:hover {
+    color: $blurred-pink;
+    background-color: #ffffff;
+    border-color: #ffffff;
+}
+
+.centeredHeader {
+    justify-content: center;
+    text-align: center;
+    margin: 0 auto;
+    ul.header li {
+        display: inline;
+        list-style-type: none;
+        margin: 0;
+    }
+    ul.header {
+        background-color: $orange-pink;
+        padding: 0;
+        display: -moz-grid-group;
+        border-radius: 10px;
+    }
+    ul.header li a {
+        color: #FFFFFF;
+        font-weight: bold;
+        text-decoration: none;
+        padding: 20px;
+        display: inline-block;
+        text-align: center;
+        vertical-align: middle;
+        font-size: 15px;
+    }
+    ul.header li a:hover {
+        color: #000000;
+        -webkit-transition-duration: 500ms; 
+        text-decoration: underline;
+    }
+}
+
+.footer {
+    background-color: #000000;
+}
+.gradient {
+    margin-top: -22px;
+    background-image: linear-gradient($orange-pink, #FFFFFF);
+}
