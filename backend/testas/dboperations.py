@@ -6,16 +6,19 @@ import pymysql
 
 #Pridėti lentelę:
 #myCursor.execute("""CREATE TABLE service
-#   (
+# #  (
 #       id int primary key,
 #        name varchar(50),
 #        description varchar(1000),
-#        isavailable bit,
 #        pricefrom decimal(6,2),
-#        priceto decimal(6,2),
-#        place varchar(50)
+#        priceto decimal(6,2)
 #    )
 #    """)
+#
+#conn.commit()
+
+#conn.close()
+
  #editint lentele
 #myCursor.execute("""ALTER TABLE service ADD
 #    (
@@ -24,10 +27,11 @@ import pymysql
 #    """)
 
 #pridėti elementą:
-def create(id, name, description):
+def create(id, name, description, price_From, price_To):
     conn = pymysql.connect(host="localhost", user="root", passwd="", db="servicesdb", cursorclass=pymysql.cursors.DictCursor)
     myCursor = conn.cursor()
-    myCursor.execute('INSERT INTO service(id,title,description) VALUES(%s, \'%s\', \'%s\');' % (id, name, description))
+    myCursor.execute('INSERT INTO service(id,title,description,price_From,price_To) VALUES(%s, \'%s\', \'%s\',\'%s\',\'%s\');' % \
+       (id, name, description, price_From, price_To))
     #myCursor.execute("INSERT INTO service(id,name,description) VALUES(9,'123','464');")
     conn.commit()
     conn.close()
