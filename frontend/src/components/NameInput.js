@@ -17,6 +17,7 @@ export default class LoginInput extends React.Component {
                     type={this.props.type}
                     label={this.checkIfEmpty(this.props.firstField) ? this.props.firstField : " "}
                     placeholder={this.checkIfEmpty(this.props.secondField) ? this.props.secondField : " "}
+                    onChange={this.props.changeHandler}
                     fullWidth
                     margin="normal"
                     variant="outlined"

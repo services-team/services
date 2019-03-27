@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Header from '../components/Header';
 import ServiceDashboardPage from '../components/ServiceDashboardPage';
+import ServiceForm from '../components/ServiceForm';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Footer from '../components/Footer';
 import HomePage from '../HomePage';
@@ -25,14 +26,14 @@ export default () => (
         <BrowserRouter>
             <div className="row">
                 <div className="col-2">
-                
+                    <p>kazkas</p>
                 </div>
                 <div className="col-8">
                     <Header />
                     <Switch>
-                        <div className="gradient">
+                        <div>
                             <Route path="/" component={ServiceDashboardPage} exact={true} />
-                            <Route path="/create" />
+                            <Route path="/create" component={ServiceForm} />
                             <Route path="/edit/:id"  />
                             <Route path="/help"  />
                             <Route />
