@@ -11,5 +11,5 @@ from testas import dboperations
 
 
 def home(request):
-    dboperations.create(4, "meginimas", "aprasymas", 4, 20)
+    dboperations.create(0, "ir vel pridetas", "tik si kart trecias", -1, 1)
     return HttpResponse("<h1>" + "aa" + "</h1>")

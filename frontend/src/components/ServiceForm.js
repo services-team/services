@@ -67,7 +67,8 @@ class ServiceForm extends React.Component {
             title: this.state.title,
             description: this.state.description,
             price_From: this.state.priceFrom,
-            price_To: this.state.priceTo
+            price_To: this.state.priceTo,
+            city: this.state.city
         }
         axios.post("/api/service/", item)
         .then(this.props.history.push('/'));

@@ -6,12 +6,12 @@ from tastypie.authorization import Authorization
 from api.models import Service
 
 class ServiceResource(ModelResource):
-    """Does things"""
+    """Class between a URL and a Service object"""
     class Meta:
-        """Does some things"""
+        """Meta data"""
         queryset = Service.objects.all()
         resources_name = 'service'
-        filtering = { 'title', 'contains'}
+        #filtering = { 'title', 'contains'}
         authorization = Authorization()
     
     

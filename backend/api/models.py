@@ -13,6 +13,7 @@ class Service(models.Model):
     price_To = models.DecimalField(decimal_places=2, max_digits=6)
     #default_place = models.TextField()
     #qualification = models.Te
+    city = models.TextField()
     class Meta:
         db_table = "service"
 

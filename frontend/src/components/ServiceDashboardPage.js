@@ -53,7 +53,7 @@ class SimpleTable extends React.Component {
                 <TableCell align="center">{item.description}</TableCell>
                 <TableCell align="center">{item.price_From}</TableCell>
                 <TableCell align="center">{item.price_To}</TableCell>
-                <TableCell align="center">Dar nera</TableCell>
+                <TableCell align="center">{item.city}</TableCell>
             </TableRow>
         ));
     };
