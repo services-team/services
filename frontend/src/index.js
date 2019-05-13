@@ -1,11 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 //import './index.css';
-import App from './App';
 import HomePage from './HomePage';
 import * as serviceWorker from './serviceWorker';
 import './styles/styles.scss'
 import AppRouter from './routers/AppRouter';
+import configureStore from './store/configureStore';
+import { Provider } from 'react-redux';
+import App from './components/App';
+
 
 const jsx = (
     <div>

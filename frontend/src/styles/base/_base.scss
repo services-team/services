@@ -12,7 +12,7 @@ body {
     //background-image: linear-gradient(to right, #FFFCEC, $orange-pink);
     background-color: $orange-pink;
     color: #000000;
-    padding-bottom: 452px;
+    padding-bottom: 365px;
     padding-top: 410px;
     padding-left: 100px;
     margin-left: -20px;
@@ -24,7 +24,7 @@ body {
 .homePageRight {
     background-image: linear-gradient(to right, $orange-pink, #FFFCEC);
     margin-left: -31px;
-    padding-bottom: 321px;
+    padding-bottom: 160px;
     padding-top: 50px;
     margin-right: -20px;
     text-align: center;
@@ -106,3 +106,6 @@ h1 {
 //     margin-top: -22px;
 //     background-image: linear-gradient($orange-pink, #FFFFFF);
 // }
+.errorMessage {
+    color: red;
+}

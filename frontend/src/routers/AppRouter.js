@@ -6,6 +6,11 @@ import ServiceForm from '../components/ServiceForm';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Footer from '../components/Footer';
 import HomePage from '../HomePage';
+import EditServicePage from '../components/EditServicePage';
+import PrivateRoute from './PrivateRoute';
+import MyServicesPage from '../components/MyServicesPage';
+import { AddServicePage } from '../components/AddServicePage';
+//import EditServicePage from '../components/EditServicePage';
 
 const theme = createMuiTheme({
     palette: {
@@ -24,6 +29,7 @@ const theme = createMuiTheme({
 export default () => (
     <MuiThemeProvider theme={theme}>
         <BrowserRouter>
+        {localStorage.setItem('userTokken', null)}
             <div className="row">
                 <div className="col-2">
                     <p>kazkas</p>
@@ -31,14 +37,10 @@ export default () => (
                 <div className="col-8">
                     <Header />
                     <Switch>
-                        <div>
-                            <Route path="/" component={ServiceDashboardPage} exact={true} />
-                            <Route path="/create" component={ServiceForm} />
-                            <Route path="/edit/:id"  />
-                            <Route path="/help"  />
-                            <Route />
-                            <Route  />
-                        </div>
+                            <Route exact path="/" component={ServiceDashboardPage} />
+                            <PrivateRoute exact path="/create" isAuthed={true} component={AddServicePage} />
+                            <PrivateRoute exact path="/edit/:id" isAuthed={true} component={EditServicePage} />
+                            <PrivateRoute exact path="/myservices" isAuthed={true} component={MyServicesPage} />
                     </Switch>
                 </div>
             </div>

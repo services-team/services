@@ -1,11 +1,71 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import TextField from '@material-ui/core/TextField';
+import NameInput from './NameInput';
+import { Button } from '@material-ui/core';
+import Modal from './Modal';
+import axios from 'axios';
 
 export default class Header extends React.Component {
+    state = {
+        username: '',
+        password: '',
+        modal: false
+    }
+
+    toggle = () => {
+        this.setState({ modal: !this.state.modal });
+    }
+
+    onUsernameChange = (e) => {
+        this.setState({ username: e.target.value });
+    }
+    onPasswordChange = (e) => {
+        this.setState({ password: e.target.value });
+    }
+    onLoginSubmit = () => {
+        if (this.state.username !== '' && this.state.password !== '') {
+            const user = {
+                UserName: this.state.username,
+                Password: this.state.password
+            }
+            axios.post('/api/applicationuser/login', user)
+            .then((res) => localStorage.setItem('userTokken', res.token))
+            .catch((err) => console.log(err));
+        }
+    }
+
+    renderLogin(){
+        return (
+            <div className="row">
+                    <div className="col-sm-4"></div>
+                    <div className="col-sm">
+                    <div className="row">
+                        <NameInput
+                            firstField="Vartotojo vardas"
+                            secondField="Prisijungimo vardas"
+                        />
+                        <NameInput
+                            firstField="Vartotojo slaptažodis"
+                            secondField="Slaptažodis"
+                            type="password"
+                        />
+                        <Button color="primary" variant="contained" onClick={this.onLoginSubmit}>Jungtis</Button>
+                        <Button color="secondary" variant="contained" onClick={this.toggle}>Registruotis</Button>
+                    </div>
+                    </div>
+            </div>
+        );
+    }
+
     render() {
         return (
             <div>
-                <h1>Prisijungęs kaip + vardas</h1>
+                {this.state.modal ? (
+                    <Modal toggle={this.toggle}/>
+                ) : null}
+                {localStorage.getItem('userTokken') === null ? (<p>tokenas yra {localStorage.getItem('userTokken')}</p>) : this.renderLogin()}
+                {this.renderLogin}
                 <div className="centeredHeader">
                     <ul className="header">
                         <div className="row">
@@ -16,7 +76,10 @@ export default class Header extends React.Component {
                                     <li><NavLink to="/create">PRIDĖTI PASLAUGĄ</NavLink></li>
                                 </div>
                                 <div className="col">
-                                    <li><NavLink to="/help">PAGALBA</NavLink></li>
+                                    <li><NavLink to="/myservices">MANO PASLAUGOS</NavLink></li>
+                                </div>
+                                <div className="col">
+                                    <li><NavLink to="/reservations">REZERVACIJOS</NavLink></li>
                                 </div>
                         </div>
                     </ul>

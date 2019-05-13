@@ -18,62 +18,11 @@ const styles = theme => ({
 });
 
 class ServiceForm extends React.Component {
-    constructor(props) {
+    constructor(props){
         super(props);
         this.state = {
-            title: '',
-            description: '',
-            priceFrom: 0,
-            priceTo: 0,
-            city: '',
-            id: 0
         }
-    };
-
-    // handleChange = e => {
-    //     let { name, value } = e.target;
-        
-    //     const activeItem = { ...this.state.activeItem, [name]: value };
-    //     this.setState({ activeItem });
-    // };
-
-    handleTitleChange = (e) => {
-        const title = e.target.value;
-        this.setState({ title: title });
     }
-
-    handleDescriptionChange = (e) => {
-        const description = e.target.value;
-        this.setState({ description: description });
-    }
-
-    handlePriceFromChange = (e) => {
-        const priceFrom = e.target.value;
-        this.setState({ priceFrom: priceFrom });
-    }
-
-    handlePriceToChange = (e) => {
-        const priceTo = e.target.value;
-        this.setState({ priceTo: priceTo });
-    }
-
-    handleCityChange = (e) => {
-        const city = e.target.value;
-        this.setState({ city: city });
-    }
-
-    submitService = () => {
-        const item = {
-            title: this.state.title,
-            description: this.state.description,
-            price_From: this.state.priceFrom,
-            price_To: this.state.priceTo,
-            city: this.state.city
-        }
-        axios.post("/api/service/", item)
-        .then(this.props.history.push('/'));
-        console.log("posted");
-    };
 
     render() {
         return (
@@ -92,7 +41,8 @@ class ServiceForm extends React.Component {
                                 margin="normal"
                                 variant="outlined"
                                 InputLabelProps={{ shrink: true }}
-                                onChange={this.handleTitleChange}
+                                value={this.props.title}
+                                onChange={this.props.onTitleChange}
                             />
                             <TextField
                                 id="description-input"
@@ -103,7 +53,8 @@ class ServiceForm extends React.Component {
                                 margin="normal"
                                 variant="outlined"
                                 InputLabelProps={{ shrink: true }}
-                                onChange={this.handleDescriptionChange}
+                                value={this.props.description}
+                                onChange={this.props.onDescriptionChange}
                             />
                         </Grid>
                         <Grid item xs={5}>
@@ -116,7 +67,8 @@ class ServiceForm extends React.Component {
                                 margin="normal"
                                 variant="outlined"
                                 InputLabelProps={{ shrink: true }}
-                                onChange={this.handlePriceFromChange}
+                                value={this.props.price_From}
+                                onChange={this.props.onPriceFromChange}
                             />
                         </Grid>
                         <Grid item xs={5}>
@@ -129,7 +81,8 @@ class ServiceForm extends React.Component {
                                 margin="normal"
                                 variant="outlined"
                                 InputLabelProps={{ shrink: true }}
-                                onChange={this.handlePriceToChange}
+                                value={this.props.price_To}
+                                onChange={this.props.onPriceToChange}
                             />
                         </Grid>
                         <Grid item xs={10}>
@@ -142,9 +95,10 @@ class ServiceForm extends React.Component {
                                 margin="normal"
                                 variant="outlined"
                                 InputLabelProps={{ shrink: true }}
-                                onChange={this.handleCityChange}
+                                value={this.props.city}
+                                onChange={this.props.onCityChange}
                             />
-                            <Button variant="contained" color="secondary" onClick={this.submitService}>Pridėti paslaugą</Button>
+                            <Button variant="contained" color="secondary" onClick={this.props.onSubmit}>Išsaugoti</Button>
                         </Grid>
                     </Grid>
                 </Paper>

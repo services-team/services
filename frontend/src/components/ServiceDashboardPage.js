@@ -8,6 +8,9 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { TableBody } from '@material-ui/core';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+import ServiceList from './ServiceList';
+import { connect } from 'react-redux';
 
 //Pakeitimai ivyko cia
 
@@ -32,34 +35,6 @@ class SimpleTable extends React.Component {
         };
     }
 
-    componentDidMount() {
-        this.refreshList();
-    }
-
-    refreshList = () => {
-        axios
-        .get('api/service/')
-        .then(res => {
-            console.log(res.data);
-            this.setState({ servicesList: res.data.objects });
-        })
-        .catch(err => console.log(err));
-    };
-
-    renderItems = () => {
-        return this.state.servicesList.map(item => (
-            <TableRow key={item.id}>
-                <TableCell component="th" scope="row">
-                    {item.title}
-                </TableCell>
-                <TableCell align="center">{item.description}</TableCell>
-                <TableCell align="center">{item.price_From}</TableCell>
-                <TableCell align="center">{item.price_To}</TableCell>
-                <TableCell align="center">{item.city}</TableCell>
-            </TableRow>
-        ));
-    };
-    
 
     render() {
         return (
@@ -73,11 +48,10 @@ class SimpleTable extends React.Component {
                             <TableCell align="center">Minimali kaina</TableCell>
                             <TableCell align="center">Maksimali kaina</TableCell>
                             <TableCell align="center">Miestas</TableCell>
+                            <TableCell align="center">Veiksmai</TableCell>
                         </TableRow>
                     </TableHead>
-                    <TableBody>
-                        {this.renderItems()}
-                    </TableBody>
+                    <ServiceList />
                 </Table>
             </Paper>
         );
@@ -89,3 +63,11 @@ SimpleTable.propTypes = {
 };
 
 export default withStyles(styles)(SimpleTable);
+
+// const mapStateToProps = (state) => {
+//     return {
+//         services: state.services
+//     };
+// };
+
+//export default connect(mapStateToProps)(sth);
