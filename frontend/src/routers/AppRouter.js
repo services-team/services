@@ -29,7 +29,6 @@ const theme = createMuiTheme({
 export default () => (
     <MuiThemeProvider theme={theme}>
         <BrowserRouter>
-        {localStorage.setItem('userTokken', null)}
             <div className="row">
                 <div className="col-2">
                     <p>kazkas</p>

@@ -24,15 +24,19 @@ export default class Header extends React.Component {
         this.setState({ password: e.target.value });
     }
     onLoginSubmit = () => {
-        if (this.state.username !== '' && this.state.password !== '') {
+        console.log('Man patinka');
+        localStorage.setItem('Testas', 'Testas123');
             const user = {
                 UserName: this.state.username,
                 Password: this.state.password
             }
             axios.post('/api/applicationuser/login', user)
             .then((res) => localStorage.setItem('userTokken', res.token))
-            .catch((err) => console.log(err));
-        }
+            .catch((err) => console.log(err))
+    }
+
+    setToken() {
+        localStorage.setItem('userTokken', 'null');
     }
 
     renderLogin(){
@@ -64,7 +68,7 @@ export default class Header extends React.Component {
                 {this.state.modal ? (
                     <Modal toggle={this.toggle}/>
                 ) : null}
-                {localStorage.getItem('userTokken') === null ? (<p>tokenas yra {localStorage.getItem('userTokken')}</p>) : this.renderLogin()}
+                {localStorage.getItem('userTokken') !== 'null' ? (<div><p>tokenas yra {localStorage.getItem('userTokken')}</p><Button onClick={this.setToken}>Atsijungti</Button></div>) : this.renderLogin()}
                 {this.renderLogin}
                 <div className="centeredHeader">
                     <ul className="header">

@@ -10,6 +10,10 @@ import { Provider } from 'react-redux';
 import App from './components/App';
 
 
+if (!localStorage.getItem('Testas2') !== null) {
+    localStorage.setItem('Testas2', 'Testuoju dar karta ir testas buvo toks');
+}
+
 const jsx = (
     <div>
         <AppRouter />
