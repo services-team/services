@@ -32,11 +32,13 @@ export default class Header extends React.Component {
             }
             axios.post('/api/applicationuser/login', user)
             .then((res) => localStorage.setItem('userTokken', res.token))
-            .catch((err) => console.log(err))
+            .catch((err) => console.log(err));
+        window.location.reload();
     }
 
     setToken() {
         localStorage.setItem('userTokken', 'null');
+        window.location.reload();
     }
 
     renderLogin(){

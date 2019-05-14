@@ -1,18 +1,15 @@
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
 
-class MyServicePage extends React.Component {
+export default class ReservationsPage extends React.Component {
 
     render() {
-        return(
+        return (
             <div>
                 <Paper>
-                <h2 align="center">Mano siūlomos paslaugos</h2>
-                
+                    <h2 align="center">Mano užsakytos rezervacijos</h2>
                 </Paper>
             </div>
         );
     }
 }
-
-export default MyServicePage;

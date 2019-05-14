@@ -8,7 +8,18 @@ import AppRouter from './routers/AppRouter';
 import configureStore from './store/configureStore';
 import { Provider } from 'react-redux';
 import App from './components/App';
+import axios from 'axios';
 
+const token = localStorage.getItem('userTokken');
+
+if (token !== 'null') {
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+}
+else {
+    delete axios.defaults.headers.common['Authorization'];
+}
+
+ localStorage.setItem('userTokken', 'xuj');
 
 if (!localStorage.getItem('Testas2') !== null) {
     localStorage.setItem('Testas2', 'Testuoju dar karta ir testas buvo toks');

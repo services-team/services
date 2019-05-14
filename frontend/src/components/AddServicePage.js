@@ -50,9 +50,6 @@ export class AddServicePage extends React.Component {
             price_To: this.state.price_To,
             city: this.state.city
         }
-        const config = {
-            
-        };
         axios.post('/api/service/', service)
         .then((res) => {
             this.props.history.push('/dashboard');

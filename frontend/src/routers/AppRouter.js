@@ -10,6 +10,8 @@ import EditServicePage from '../components/EditServicePage';
 import PrivateRoute from './PrivateRoute';
 import MyServicesPage from '../components/MyServicesPage';
 import { AddServicePage } from '../components/AddServicePage';
+import ReservationsPage from '../components/ReservationsPage';
+import Testas from '../components/Testas';
 //import EditServicePage from '../components/EditServicePage';
 
 const theme = createMuiTheme({
@@ -26,6 +28,14 @@ const theme = createMuiTheme({
     }
 });
 
+function checkIfAuthed() {
+    const token = localStorage.getItem('userTokken');
+    if (token !== 'null') {
+        return true;
+    }
+    return false;
+}
+
 export default () => (
     <MuiThemeProvider theme={theme}>
         <BrowserRouter>
@@ -37,9 +47,11 @@ export default () => (
                     <Header />
                     <Switch>
                             <Route exact path="/" component={ServiceDashboardPage} />
-                            <PrivateRoute exact path="/create" isAuthed={true} component={AddServicePage} />
-                            <PrivateRoute exact path="/edit/:id" isAuthed={true} component={EditServicePage} />
-                            <PrivateRoute exact path="/myservices" isAuthed={true} component={MyServicesPage} />
+                            <PrivateRoute exact path="/create" isAuthed={checkIfAuthed()} component={AddServicePage} />
+                            <PrivateRoute exact path="/edit/:id" isAuthed={checkIfAuthed()} component={EditServicePage} />
+                            <PrivateRoute exact path="/myservices" isAuthed={checkIfAuthed()} component={MyServicesPage} />
+                            <PrivateRoute exact path="/reservations" isAuthed={checkIfAuthed()} component={ReservationsPage} />
+                            <Route path="*" component={Testas} />
                     </Switch>
                 </div>
             </div>

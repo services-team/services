@@ -40,7 +40,7 @@ class SimpleTable extends React.Component {
         return (
             <Paper className={styles.root}>
                 <h2 align="center">Visos siulomos paslaugos</h2>
-                <Table className={styles.table}>
+                <Table>
                     <TableHead>
                         <TableRow>
                             <TableCell>Pavadinimas</TableCell>
