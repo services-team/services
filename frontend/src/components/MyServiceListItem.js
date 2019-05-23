@@ -5,8 +5,8 @@ import TableCell from '@material-ui/core/TableCell';
 import Button from '@material-ui/core/Button';
 
 
-export default  ({ id, title, description, price_From, price_To, city }) => (
-        <TableRow key={id}>
+export default ({ id, title, description, price_From, price_To, city }) => (
+        <TableRow>
             <TableCell component="th" scope="row">
                 {title}
             </TableCell>
@@ -16,13 +16,21 @@ export default  ({ id, title, description, price_From, price_To, city }) => (
             <TableCell align="center">{city}</TableCell>
             <TableCell align="center">
                 <Link to={{
-                    pathname: `/order/${id}`,
+                    pathname: `/edit/${id}`,
+                    query: {
+                        adress: JSON.stringify(id)
+                    }
+                    }}>
+                    <Button>Redaguoti</Button>
+                </Link>
+                <Link to={{
+                    pathname: `/subservice/${id}`,
                     query: {
                         adress: JSON.stringify(id)
                     }
                 }}>
-                    <Button>Užsisakyti paslaugą</Button>
+                    <Button>Pridėti popaslaugę</Button>
                 </Link>
             </TableCell>
         </TableRow>
-);
+)

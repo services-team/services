@@ -6,7 +6,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import ServiceList from './ServiceList';
+import OrderedServicesList from './OrderedServicesList';
 
 
 const styles = theme => ({
@@ -33,19 +33,19 @@ class SimpleTable extends React.Component {
     render() {
         return (
             <Paper className={styles.root}>
-                <h2 align="center">Visos siulomos paslaugos</h2>
+                <h2 align="center">Mano užsakytos paslaugos</h2>
                 <Table>
                     <TableHead>
                         <TableRow>
                             <TableCell>Pavadinimas</TableCell>
-                            <TableCell align="center">Aprašymas</TableCell>
+                            <TableCell align="center">Laikas</TableCell>
                             <TableCell align="center">Minimali kaina</TableCell>
                             <TableCell align="center">Maksimali kaina</TableCell>
                             <TableCell align="center">Miestas</TableCell>
                             <TableCell align="center">Veiksmai</TableCell>
                         </TableRow>
                     </TableHead>
-                    <ServiceList />
+                    <OrderedServicesList />
                 </Table>
             </Paper>
         );
@@ -57,11 +57,3 @@ SimpleTable.propTypes = {
 };
 
 export default withStyles(styles)(SimpleTable);
-
-// const mapStateToProps = (state) => {
-//     return {
-//         services: state.services
-//     };
-// };
-
-//export default connect(mapStateToProps)(sth);

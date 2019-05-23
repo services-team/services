@@ -5,12 +5,12 @@ import TableCell from '@material-ui/core/TableCell';
 import Button from '@material-ui/core/Button';
 
 
-export default  ({ id, title, description, price_From, price_To, city }) => (
+export default  ({ id, title, time, price_From, price_To, city }) => (
         <TableRow key={id}>
             <TableCell component="th" scope="row">
                 {title}
             </TableCell>
-            <TableCell align="center">{description}</TableCell>
+            <TableCell align="center">{time}</TableCell>
             <TableCell align="center">{price_From}</TableCell>
             <TableCell align="center">{price_To}</TableCell>
             <TableCell align="center">{city}</TableCell>
@@ -21,7 +21,7 @@ export default  ({ id, title, description, price_From, price_To, city }) => (
                         adress: JSON.stringify(id)
                     }
                 }}>
-                    <Button>Užsisakyti paslaugą</Button>
+                    <Button>Atšaukti</Button>
                 </Link>
             </TableCell>
         </TableRow>

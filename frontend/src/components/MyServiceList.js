@@ -1,9 +1,9 @@
 import React from 'react';
-import ServiceListItem from './ServiceListItem';
+import MyServiceListItem from './MyServiceListItem';
 import { TableBody } from '@material-ui/core';
 import axios from 'axios';
 
-export default class ServiceList extends React.Component {
+export default class MyServiceList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -15,18 +15,26 @@ export default class ServiceList extends React.Component {
                     price_From: 55,
                     price_To: 100,
                     city: 'Kaunas'
+                },
+                {
+                    id: 2,
+                    title: 'pimpis',
+                    description: 'ziaurus dalykas',
+                    price_From: 55,
+                    price_To: 100,
+                    city: 'Kaunas'
                 }
             ]
         };
     }
 
     componentDidMount() {
-        //this.refreshList();
+        this.refreshList();
     }
 
     refreshList = () => {
         axios
-        .get('api/service/')
+        .get('api/myservices/')
         .then(res => {
             this.setState({ servicesList: res.data.objects });
         })
@@ -37,7 +45,7 @@ export default class ServiceList extends React.Component {
         return (
             <TableBody>
                 {this.state.servicesList.map((service) => {
-                    return <ServiceListItem key={service.id} {...service} />
+                    return <MyServiceListItem key={service.id} {...service} />
                 })}
             </TableBody>
         );
