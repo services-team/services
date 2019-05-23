@@ -2,15 +2,14 @@ import React from 'react';
 import ServiceForm from './ServiceForm';
 import axios from 'axios';
 
-export class AddServicePage extends React.Component {
+export default class AddSubServicePage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             title: '',
-            description: '',
-            price_From: 0,
-            price_To: 0,
-            city: ''
+            price: 0,
+            duration: 0,
+            serviceId: this.props.match.params.id
         }
     }
 
@@ -41,14 +40,14 @@ export class AddServicePage extends React.Component {
     }
 
     onServiceSubmit = () => {
-        const service = {
+        const subService = {
             title: this.state.title,
-            description: this.state.description,
-            price_From: this.state.price_From,
-            price_To: this.state.price_To,
-            city: this.state.city
+            price: this.state.price_To,
+            duration: this.state.duration,
+            serviceId: this.state.serviceId
+
         }
-        axios.post('/api/service/', service)
+        axios.post('/api/subservice/', subService)
         .then((res) => {
             this.props.history.push('/');
         })
@@ -58,7 +57,7 @@ export class AddServicePage extends React.Component {
     render() {
         return (
             <div>
-            <h2 align="center">Naujos paslaugos kūrimas</h2>
+            <h2 align="center">Naujos popaslaugės kūrimas</h2>
                 <ServiceForm
                  onSubmit={this.onServiceSubmit}
                  onTitleChange={this.handleTitleChange}

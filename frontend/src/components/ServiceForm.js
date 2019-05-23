@@ -1,11 +1,9 @@
 import React from 'react';
-import NameInput from './NameInput';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import axios from 'axios';
 
 const styles = theme => ({
     root: {
@@ -27,7 +25,6 @@ class ServiceForm extends React.Component {
     render() {
         return (
             <Paper className={styles.root}>
-                <h2 align="center">Naujos paslaugos kūrimas</h2>
                 {this.state.error && <p>{this.state.error}</p>}
                 <Paper className={styles.compressed}>
                     <Grid container spacing={24} justify="center">

@@ -1,6 +1,5 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import TextField from '@material-ui/core/TextField';
 import NameInput from './NameInput';
 import { Button } from '@material-ui/core';
 import Modal from './Modal';
@@ -24,7 +23,6 @@ export default class Header extends React.Component {
         this.setState({ password: e.target.value });
     }
     onLoginSubmit = () => {
-        console.log('Man patinka');
         localStorage.setItem('Testas', 'Testas123');
             const user = {
                 UserName: this.state.username,
@@ -71,7 +69,6 @@ export default class Header extends React.Component {
                     <Modal toggle={this.toggle}/>
                 ) : null}
                 {localStorage.getItem('userTokken') !== 'null' ? (<div><p>tokenas yra {localStorage.getItem('userTokken')}</p><Button onClick={this.setToken}>Atsijungti</Button></div>) : this.renderLogin()}
-                {this.renderLogin}
                 <div className="centeredHeader">
                     <ul className="header">
                         <div className="row">
@@ -85,7 +82,10 @@ export default class Header extends React.Component {
                                     <li><NavLink to="/myservices">MANO PASLAUGOS</NavLink></li>
                                 </div>
                                 <div className="col">
-                                    <li><NavLink to="/reservations">REZERVACIJOS</NavLink></li>
+                                    <li><NavLink to="/schedule">MANO TVARKARAŠTIS</NavLink></li>
+                                </div>
+                                <div className="col">
+                                    <li><NavLink to="/orders">REZERVACIJOS</NavLink></li>
                                 </div>
                         </div>
                     </ul>
