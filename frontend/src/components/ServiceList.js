@@ -21,7 +21,7 @@ export default class ServiceList extends React.Component {
     }
 
     componentDidMount() {
-        //this.refreshList();
+        this.refreshList();
     }
 
     refreshList = () => {

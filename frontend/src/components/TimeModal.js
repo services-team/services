@@ -27,6 +27,7 @@ export default class TimeModal extends React.Component {
                     label="Nuo"
                     type="text"
                     fullWidth
+                    value={this.props.timeFromValue}
                     onChange={this.props.handleFromChange}
                 />
                 <TextField 
@@ -35,6 +36,7 @@ export default class TimeModal extends React.Component {
                     label="Iki"
                     type="text"
                     fullWidth
+                    value={this.props.timeToValue}
                     onChange={this.props.handleToChange}
                 />
                     </DialogContent>

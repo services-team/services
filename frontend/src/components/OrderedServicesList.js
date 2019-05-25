@@ -26,7 +26,7 @@ export default class ServiceList extends React.Component {
 
     refreshList = () => {
         axios
-        .get('api/service/')
+        .get('api/myreservations/')
         .then(res => {
             this.setState({ servicesList: res.data.objects });
         })
