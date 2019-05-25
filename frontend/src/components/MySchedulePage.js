@@ -13,106 +13,7 @@ import { TableBody } from '@material-ui/core';
 export default class MySchedulePage extends React.Component {
 
     state = {
-        weeklySchedule: {
-            id: 1,
-            title: "Tvarkaraštis",
-            day: [
-                {
-                    weekDay: {
-                        id: 1,
-                        name: "Monday"
-                    },
-                    workTime: [
-                        {
-                            id: 1,
-                            timeFrom: 8,
-                            timeTo: 17
-                        }
-                    ]
-                },
-                {
-                    weekDay: {
-                        id: 2,
-                        name: "Tuesday"
-                    },
-                    workTime: [
-                        {
-                            id: 1,
-                            timeFrom: 9,
-                            timeTo: 18
-                        }
-                    ]
-                },
-                {
-                    weekDay: {
-                        id: 3,
-                        name: "Wednesday"
-                    },
-                    workTime: [
-                        {
-                            id: 1,
-                            timeFrom: 10,
-                            timeTo: 19
-                        }
-                    ]
-                },
-                {
-                    weekDay: {
-                        id: 4,
-                        name: "Thursday"
-                    },
-                    workTime: [
-                        {
-                            id: 1,
-                            timeFrom: 6,
-                            timeTo: 15
-                        }
-                    ]
-                },
-                {
-                    weekDay: {
-                        id: 5,
-                        name: "Friday"
-                    },
-                    workTime: [
-                        {
-                            id: 1,
-                            timeFrom: 0,
-                            timeTo: 9
-                        }
-                    ]
-                },
-                {
-                    weekDay: {
-                        id: 6,
-                        name: "Saturday"
-                    },
-                    workTime: [
-                        {
-                            id: 1,
-                            timeFrom: 10,
-                            timeTo: 14
-                        },
-                        {
-                            id: 2,
-                            timeFrom: 15,
-                            timeTo: 20
-                        }
-                    ]
-                },
-                {
-                    weekDay: {
-                        id: 7,
-                        name: "Sunday"
-                    },
-                    workTime: [{
-                        id: 1,
-                        timeFrom: 17,
-                        timeTo: 24
-                    }]
-                },
-            ]
-        },
+        weeklySchedule: {},
         modalFrom: 0,
         modalTo: 0,
         modal: false,
@@ -128,11 +29,12 @@ export default class MySchedulePage extends React.Component {
             minutesTo: this.state.modalTo            
         }
         this.state.weeklySchedule.day[this.state.currentDay].workTime.push(workTime);
+        this.refreshList();
     }
 
     refreshList = () => {
-        axios.get('/api/weeklyschedule')
-        .then((res) => this.setState({ weeklySchedule: res.data.objects }))
+        axios.get('/api/weeklyschedule/myschedule')
+        .then((res) => this.setState({ weeklySchedule: res.data }))
         .catch((err) => console.log(err));
     }
 
@@ -152,8 +54,8 @@ export default class MySchedulePage extends React.Component {
     handleModalSubmit = () => {
         this.addWorkTime();
         this.toggle();
-        const id = this.state.weeklySchedule.id;
-        axios.put('/api/weeklyschedule', id)
+        const schedule = this.state.weeklySchedule;
+        axios.put('/api/weeklyschedule/', schedule)
         .then((res) => this.refreshList())
         .catch((err) => console.log(err))
 
@@ -181,7 +83,8 @@ export default class MySchedulePage extends React.Component {
             <div>
                 {this.state.modal ? (
                     <TimeModal
-                     timeValue={this.state.timeFrom}
+                     timeFromValue={this.state.timeFrom}
+                     timeToValue={this.state.timeTo}
                      toggle={this.toggle}
                      handleModalSubmit={this.handleModalSubmit}
                      handleFromChange={this.handleFromChange}

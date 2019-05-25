@@ -57,7 +57,7 @@ class ServiceForm extends React.Component {
                         <Grid item xs={5}>
                             <TextField
                                 id="priceFrom-input"
-                                type="text"
+                                type="number"
                                 label="Įveskite minimalią kainą"
                                 placeholder="Minimali kaina"
                                 fullWidth
@@ -71,7 +71,7 @@ class ServiceForm extends React.Component {
                         <Grid item xs={5}>
                             <TextField
                                 id="priceTo-input"
-                                type="text"
+                                type="number"
                                 label="Įveskite maksimalią kainą"
                                 placeholder="Maksimali kaina"
                                 fullWidth

@@ -1,5 +1,5 @@
 import React from 'react';
-import ServiceForm from './ServiceForm';
+import SubServiceForm from './SubServiceForm';
 import axios from 'axios';
 
 export default class AddSubServicePage extends React.Component {
@@ -19,33 +19,26 @@ export default class AddSubServicePage extends React.Component {
     }
 
     
-    handleDescriptionChange = (e) => {
-        const description = e.target.value;
-        this.setState({ description });
+
+    handlePriceChange = (e) => {
+        const price = e.target.value;
+        if (!price || price.match(/^\d{1,}(\.\d{0,2})?$/)) {
+            this.setState({ price })
+        }
     }
 
-    handlePriceFromChange = (e) => {
-        const price_From = e.target.value;
-        this.setState({ price_From });
+    handleDurationChange = (e) => {
+        const duration = e.target.value;
+        this.setState({ duration });
     }
 
-    handlePriceToChange = (e) => {
-        const price_To = e.target.value;
-        this.setState({ price_To });
-    }
-
-    handleCityChange = (e) => {
-        const city = e.target.value;
-        this.setState({ city });
-    }
 
     onServiceSubmit = () => {
         const subService = {
             title: this.state.title,
-            price: this.state.price_To,
+            price: this.state.price,
             duration: this.state.duration,
             serviceId: this.state.serviceId
-
         }
         axios.post('/api/subservice/', subService)
         .then((res) => {
@@ -58,13 +51,11 @@ export default class AddSubServicePage extends React.Component {
         return (
             <div>
             <h2 align="center">Naujos popaslaugės kūrimas</h2>
-                <ServiceForm
+                <SubServiceForm
                  onSubmit={this.onServiceSubmit}
                  onTitleChange={this.handleTitleChange}
-                 onDescriptionChange={this.handleDescriptionChange}
-                 onPriceFromChange={this.handlePriceFromChange}
-                 onPriceToChange={this.handlePriceToChange}
-                 onCityChange={this.handleCityChange}
+                 onPriceChange={this.handlePriceChange}
+                 onDurationChange={this.handleDurationChange}
                 />
             </div>
         );
