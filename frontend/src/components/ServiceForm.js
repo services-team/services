@@ -22,6 +22,7 @@ class ServiceForm extends React.Component {
         }
     }
 
+
     render() {
         return (
             <Paper className={styles.root}>
@@ -58,13 +59,14 @@ class ServiceForm extends React.Component {
                             <TextField
                                 id="priceFrom-input"
                                 type="number"
+                                inputProps={{ min: "0.01", step: "0.01" }}
                                 label="Įveskite minimalią kainą"
                                 placeholder="Minimali kaina"
                                 fullWidth
                                 margin="normal"
                                 variant="outlined"
                                 InputLabelProps={{ shrink: true }}
-                                value={this.props.price_From}
+                                value={this.props.priceFrom}
                                 onChange={this.props.onPriceFromChange}
                             />
                         </Grid>
@@ -72,13 +74,14 @@ class ServiceForm extends React.Component {
                             <TextField
                                 id="priceTo-input"
                                 type="number"
+                                inputProps={{ min: "0.01", step: "0.01" }}
                                 label="Įveskite maksimalią kainą"
                                 placeholder="Maksimali kaina"
                                 fullWidth
                                 margin="normal"
                                 variant="outlined"
                                 InputLabelProps={{ shrink: true }}
-                                value={this.props.price_To}
+                                value={this.props.priceTo}
                                 onChange={this.props.onPriceToChange}
                             />
                         </Grid>

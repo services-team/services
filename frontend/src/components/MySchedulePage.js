@@ -13,28 +13,107 @@ import { TableBody } from '@material-ui/core';
 export default class MySchedulePage extends React.Component {
 
     state = {
-        weeklySchedule: {},
-        modalFrom: 0,
-        modalTo: 0,
+        weeklySchedule: {
+            "id": 0,
+                "title": "Naujas",
+                "fkUserId": "e40d1ef3-0bb8-4a2f-a98f-3a3b7c975e88",
+                "day": [
+                    {
+                        "id": 1,
+                        "weekDay": {
+                            "id": 1,
+                            "name": "Monday"
+                        },
+                        "workTime": []
+                    },
+                    {
+                        "id": 2,
+                        "weekDay": {
+                            "id": 2,
+                            "name": "Tuesday"
+                        },
+                        "workTime": [
+                            {
+                                "id": 1,
+                                "minutesFrom": 100,
+                                "minutesTo": 200
+                            },
+                            {
+                                "id": 2,
+                                "minutesFrom": 760,
+                                "minutesTo": 955
+                            }
+                        ]
+                    },
+                    {
+                        "id": 3,
+                        "weekDay": {
+                            "id": 3,
+                            "name": "Wednesday"
+                        },
+                        "workTime": []
+                    },
+                    {
+                        "id": 4,
+                        "weekDay": {
+                            "id": 4,
+                            "name": "Thursday"
+                        },
+                        "workTime": []
+                    },
+                    {
+                        "id": 5,
+                        "weekDay": {
+                            "id": 5,
+                            "name": "Friday"
+                        },
+                        "workTime": []
+                    },
+                    {
+                        "id": 6,
+                        "weekDay": {
+                            "id": 6,
+                            "name": "Saturday"
+                        },
+                        "workTime": []
+                    },
+                    {
+                        "id": 7,
+                        "weekDay": {
+                            "id": 7,
+                            "name": "Sunday"
+                        },
+                        "workTime": []
+                    }
+                ]
+        },
+        modalHoursFrom: 0,
+        modalHoursTo: 0,
+        modalMinutesFrom: 0,
+        modalMinutesTo: 0,
         modal: false,
         currentDay: 0,
-        timeFrom: new Date('2019-05-22T00:00:00'),
-        timeTo: 0
+        timeFrom: 0,
+        timeTo: 0,
+        modalDateFrom: new Date(),
+        modalDateTo: new Date()
     }
 
 
     addWorkTime = () => {
+        let minutesFrom = this.state.modalDateFrom.getHours() * 60 + this.state.modalDateFrom.getMinutes();
+        let minutesTo = this.state.modalDateTo.getHours() * 60 + this.state.modalDateTo.getMinutes();
         const workTime = {
-            minutesFrom: this.state.modalFrom,
-            minutesTo: this.state.modalTo            
+            minutesFrom: minutesFrom,
+            minutesTo: minutesTo            
         }
         this.state.weeklySchedule.day[this.state.currentDay].workTime.push(workTime);
-        this.refreshList();
     }
 
     refreshList = () => {
-        axios.get('/api/weeklyschedule/myschedule')
+        axios.get('/api/weeklyschedule/myschedule/')
         .then((res) => this.setState({ weeklySchedule: res.data }))
+        //.then((res) => console.log(res.data))
         .catch((err) => console.log(err));
     }
 
@@ -45,46 +124,72 @@ export default class MySchedulePage extends React.Component {
         this.setState({ timeTo: time });
     }
 
-    handleFromChange = (e) => {
-        this.setState({ modalFrom: e.target.value });
+    handleFromChange = (date) => {
+        this.setState({ modalDateFrom: date });
     }
-    handleToChange = (e) => {
-        this.setState({ modalTo: e.target.value });
+    handleToChange = (date) => {
+        this.setState({ modalDateTo: date });
     }
     handleModalSubmit = () => {
         this.addWorkTime();
         this.toggle();
+    }
+
+    handleSubmitButton = () => {
         const schedule = this.state.weeklySchedule;
-        axios.put('/api/weeklyschedule/', schedule)
+        axios.put(`/api/weeklyschedule/${this.state.weeklySchedule.id}`, schedule)
         .then((res) => this.refreshList())
         .catch((err) => console.log(err))
-
     }
+
     toggle = (dayNumber) => {
         this.setState({ modal: !this.state.modal, currentDay: dayNumber });
         console.log(this.state);
+        this.setState({ modalDateFrom: new Date() });
+        this.setState({ modalDateTo: new Date() });
     }
     renderMethod = () => (
-        this.state.weeklySchedule.day.map((item) => {
+        this.state.weeklySchedule ? (
+            this.state.weeklySchedule.day.map((item) => {
+                return (
+                    <TableCell  key={item.weekDay.id}>
+                        <ScheduleTimeList dayItem={item} />
+                    </TableCell>
+                ) 
+            })
+        ) : null)
+
+    componentDidMount() {
+        axios.get('/api/weeklyschedule/myschedule/')
+        .then((res) => this.setState({ weeklySchedule: res.data }, () => console.log(this.state)))
+        //.then((res) => console.log(res.data))
+        .catch((err) => console.log(err));
+    }
+
+
+    render() {
+        function isEmpty(obj) {
+            for(let key in obj) {
+                if(obj.hasOwnProperty(key))
+                    return false;
+            }
+            return true;
+        }
+        if (isEmpty(this.state.weeklySchedule))
+            return null;
+        let times = this.state.weeklySchedule.day.map((item) => {
             return (
                 <TableCell  key={item.weekDay.id}>
                     <ScheduleTimeList dayItem={item} />
                 </TableCell>
             ) 
         })
-    );
-
-    componentDidMount() {
-        this.refreshList();
-    }
-
-    render() {
         return (
             <div>
                 {this.state.modal ? (
                     <TimeModal
-                     timeFromValue={this.state.timeFrom}
-                     timeToValue={this.state.timeTo}
+                     timeFromValue={this.state.modalDateFrom}
+                     timeToValue={this.state.modalDateTo}
                      toggle={this.toggle}
                      handleModalSubmit={this.handleModalSubmit}
                      handleFromChange={this.handleFromChange}
@@ -96,20 +201,20 @@ export default class MySchedulePage extends React.Component {
                         <TableHead>
                             <TableRow>
                                 <TableCell><div><p>Pirmadienis</p> <Button onClick={() => this.toggle(0)} variant="contained">Pridėti laiką</Button></div></TableCell>
-                                <TableCell><div><p>Antradienis</p> <Button onClick={() =>this.toggle(1)} variant="contained">Pridėti intervalą</Button></div></TableCell>
-                                <TableCell><div><p>Trečiadienis</p> <Button onClick={() =>this.toggle(2)} variant="contained">Pridėti intervalą</Button></div></TableCell>
-                                <TableCell><div><p>Ketvirtadienis</p> <Button onClick={() =>this.toggle(3)} variant="contained">Pridėti intervalą</Button></div></TableCell>
-                                <TableCell><div><p>Penktadienis</p> <Button onClick={() =>this.toggle(4)} variant="contained">Pridėti intervalą</Button></div></TableCell>
-                                <TableCell><div><p>Šeštadienis</p> <Button onClick={() => this.toggle(5)} variant="contained">Pridėti intervalą</Button></div></TableCell>
-                                <TableCell><div><p>Sekmadienis</p> <Button onClick={() => this.toggle(6)} variant="contained">Pridėti intervalą</Button></div></TableCell>
+                                <TableCell><div><p>Antradienis</p> <Button onClick={() =>this.toggle(1)} variant="contained">Pridėti laiką</Button></div></TableCell>
+                                <TableCell><div><p>Trečiadienis</p> <Button onClick={() =>this.toggle(2)} variant="contained">Pridėti laiką</Button></div></TableCell>
+                                <TableCell><div><p>Ketvirtadienis</p> <Button onClick={() =>this.toggle(3)} variant="contained">Pridėti laiką</Button></div></TableCell>
+                                <TableCell><div><p>Penktadienis</p> <Button onClick={() =>this.toggle(4)} variant="contained">Pridėti laiką</Button></div></TableCell>
+                                <TableCell><div><p>Šeštadienis</p> <Button onClick={() => this.toggle(5)} variant="contained">Pridėti laiką</Button></div></TableCell>
+                                <TableCell><div><p>Sekmadienis</p> <Button onClick={() => this.toggle(6)} variant="contained">Pridėti laiką</Button></div></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             <TableRow>
-                                {this.renderMethod()}
+                                {times}
                             </TableRow>
                         </TableBody>
-                        
+                        <Button onClick={this.handleSubmitButton}>Išsaugoti</Button>
                     </Table>
                 </Paper>
             </div>

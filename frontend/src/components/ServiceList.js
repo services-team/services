@@ -28,7 +28,7 @@ export default class ServiceList extends React.Component {
         axios
         .get('api/service/')
         .then(res => {
-            this.setState({ servicesList: res.data.objects });
+            this.setState({ servicesList: res.data });
         })
         .catch(err => console.log(err));
     };

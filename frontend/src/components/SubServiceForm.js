@@ -46,6 +46,7 @@ class SubServiceForm extends React.Component {
                             <TextField
                                 id="price-input"
                                 type="number"
+                                inputProps={{ min: "0.01", step: "0.01" }}
                                 label="Įveskite popaslaugės kainą"
                                 placeholder="Kaina"
                                 fullWidth

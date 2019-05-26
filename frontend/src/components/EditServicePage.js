@@ -29,13 +29,13 @@ export default class EditServicePage extends React.Component {
     }
 
     handlePriceFromChange = (e) => {
-        const price_From = e.target.value;
-        this.setState({ price_From });
+        const priceFrom = e.target.value;
+        this.setState({ priceFrom });
     }
 
     handlePriceToChange = (e) => {
-        const price_To = e.target.value;
-        this.setState({ price_To });
+        const priceTo = e.target.value;
+        this.setState({ priceTo });
     }
 
     handleCityChange = (e) => {
@@ -47,13 +47,13 @@ export default class EditServicePage extends React.Component {
         const service = {
             title: this.state.title,
             description: this.state.description,
-            price_From: this.state.price_From,
-            price_To: this.state.price_To,
+            priceFrom: this.state.priceFrom,
+            priceTo: this.state.priceTo,
             city: this.state.city
         }
         axios.put(`/api/service/${this.props.match.params.id}/`, service)
-        .then(() => this.props.history.push('/dashboard'));
-        ;
+        .then(() => this.props.history.push('/myservices'))
+        .catch((err) => console.log(err))
     }
 
     render() {
@@ -62,8 +62,8 @@ export default class EditServicePage extends React.Component {
             <ServiceForm
             title={this.state.title}
             description={this.state.description}
-            price_From={this.state.price_From}
-            price_To={this.state.price_To}
+            priceFrom={this.state.priceFrom}
+            priceTo={this.state.priceTo}
             city={this.state.city}
             onSubmit={this.onEditSubmit}
             onTitleChange={this.handleTitleChange}

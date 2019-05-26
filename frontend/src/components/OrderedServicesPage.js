@@ -37,10 +37,9 @@ class SimpleTable extends React.Component {
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell>Pavadinimas</TableCell>
+                            <TableCell align="center">Pavadinimas</TableCell>
                             <TableCell align="center">Laikas</TableCell>
-                            <TableCell align="center">Minimali kaina</TableCell>
-                            <TableCell align="center">Maksimali kaina</TableCell>
+                            <TableCell align="center">Kaina</TableCell>
                             <TableCell align="center">Miestas</TableCell>
                             <TableCell align="center">Veiksmai</TableCell>
                         </TableRow>

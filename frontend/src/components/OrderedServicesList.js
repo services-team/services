@@ -7,16 +7,7 @@ export default class ServiceList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            servicesList: [
-                {
-                    title: 'Vyriškas kirpimas',
-                    id: 1,
-                    time: '12:00',
-                    price_From: 55,
-                    price_To: 100,
-                    city: 'Kaunas'
-                }
-            ]
+            servicesList: []
         };
     }
 
@@ -26,10 +17,9 @@ export default class ServiceList extends React.Component {
 
     refreshList = () => {
         axios
-        .get('api/myreservations/')
-        .then(res => {
-            this.setState({ servicesList: res.data.objects });
-        })
+        .get('api/Reservation/MyReservations')
+        .then(res => { this.setState({ servicesList: res.data }) })
+        //.then((res) => console.log(res))
         .catch(err => console.log(err));
     };
 

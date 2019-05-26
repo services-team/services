@@ -11,6 +11,7 @@
     "cors": "^2.8.5",
     "date-fns": "2.0.0-alpha.27",
     "express": "^4.16.4",
+    "jwt-decode": "^2.2.0",
     "material-ui-next-pickers": "0.0.20",
     "material-ui-pickers": "^2.2.4",
     "moment": "^2.24.0",
