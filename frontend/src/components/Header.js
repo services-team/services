@@ -4,12 +4,14 @@ import NameInput from './NameInput';
 import { Button } from '@material-ui/core';
 import Modal from './Modal';
 import axios from 'axios';
+import jwtDecode from 'jwt-decode';
 
 export default class Header extends React.Component {
     state = {
         username: '',
         password: '',
-        modal: false
+        modal: false,
+        user: {}
     }
 
     toggle = () => {
@@ -23,14 +25,17 @@ export default class Header extends React.Component {
         this.setState({ password: e.target.value });
     }
     onLoginSubmit = () => {
-        localStorage.setItem('Testas', 'Testas123');
             const user = {
                 UserName: this.state.username,
                 Password: this.state.password
             }
             axios.post('/api/applicationuser/login', user)
-            .then((res) => localStorage.setItem('userTokken', res.token))
+            .then((res) => localStorage.setItem('userTokken', res.data.token), () => this.reloadPage())
+            //.then((res) => console.log(res.data.token))
             .catch((err) => console.log(err));
+    }
+
+    reloadPage() {
         window.location.reload();
     }
 
@@ -48,11 +53,13 @@ export default class Header extends React.Component {
                         <NameInput
                             firstField="Vartotojo vardas"
                             secondField="Prisijungimo vardas"
+                            changeHandler={this.onUsernameChange}
                         />
                         <NameInput
                             firstField="Vartotojo slaptažodis"
                             secondField="Slaptažodis"
                             type="password"
+                            changeHandler={this.onPasswordChange}
                         />
                         <Button color="primary" variant="contained" onClick={this.onLoginSubmit}>Jungtis</Button>
                         <Button color="secondary" variant="contained" onClick={this.toggle}>Registruotis</Button>
@@ -68,7 +75,7 @@ export default class Header extends React.Component {
                 {this.state.modal ? (
                     <Modal toggle={this.toggle}/>
                 ) : null}
-                {localStorage.getItem('userTokken') !== 'null' ? (<div><p>tokenas yra {localStorage.getItem('userTokken')}</p><Button onClick={this.setToken}>Atsijungti</Button></div>) : this.renderLogin()}
+                {localStorage.getItem('userTokken') !== 'null' ? (<div><Button onClick={() => this.setToken()}>Atsijungti</Button></div>) : this.renderLogin()}
                 <div className="centeredHeader">
                     <ul className="header">
                         <div className="row">

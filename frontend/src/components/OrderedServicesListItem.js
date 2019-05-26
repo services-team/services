@@ -5,20 +5,17 @@ import TableCell from '@material-ui/core/TableCell';
 import Button from '@material-ui/core/Button';
 
 
-export default  ({ id, title, time, price_From, price_To, city }) => (
-        <TableRow key={id}>
-            <TableCell component="th" scope="row">
-                {title}
-            </TableCell>
-            <TableCell align="center">{time}</TableCell>
-            <TableCell align="center">{price_From}</TableCell>
-            <TableCell align="center">{price_To}</TableCell>
+export default  ({ city, startDate, subService }) => (
+        <TableRow key={subService.id}>
+            <TableCell component="th" scope="row">{subService.title}</TableCell>
+            <TableCell align="center">{startDate}</TableCell>
+            <TableCell align="center">{subService.price}</TableCell>
             <TableCell align="center">{city}</TableCell>
             <TableCell align="center">
                 <Link to={{
-                    pathname: `/order/${id}`,
+                    pathname: `/order/${subService.id}`,
                     query: {
-                        adress: JSON.stringify(id)
+                        adress: JSON.stringify(subService.id)
                     }
                 }}>
                     <Button>Atšaukti</Button>

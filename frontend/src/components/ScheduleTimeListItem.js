@@ -7,22 +7,8 @@ export default class ScheduleTimeListItem extends React.Component {
     render() {
         return(
                 <li>
-                        <p>{this.props.workTimes.timeFrom} - {this.props.workTimes.timeTo}</p>
+                        <p>{this.props.workTimes.minutesFrom} - {this.props.workTimes.minutesTo}</p>
                 </li>
         ); 
     }
 }
-
-// export default  ({ workTimes }) => (
-//     <TableRow>
-//         <TableCell component="th" scope="row">
-//             {title}
-//         </TableCell>
-//         <TableCell align="center">{description}</TableCell>
-//         <TableCell align="center">{price_From}</TableCell>
-//         <TableCell align="center">{price_To}</TableCell>
-//         <TableCell align="center">{city}</TableCell>
-//         <TableCell align="center">
-//         </TableCell>
-//     </TableRow>
-// );

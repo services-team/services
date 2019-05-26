@@ -54,16 +54,16 @@ export default class FormDialog extends React.Component {
       this.setState({ emailError: true });
     }
     else { this.setState({ emailError: false }) }
-    if(!this.state.passwordError && !this.state.usernameError && !this.state.emailError && this.state.fullNameError) {
+    if(!this.state.passwordError && !this.state.usernameError && !this.state.emailError && !this.state.fullNameError) {
       const user = {
         UserName: this.state.usernameValue,
         Password: this.state.passwordValue,
         Email: this.state.emailValue,
         FullName: this.state.fullNameValue
       }
-      axios.post('/api/applicationuser/register', user)
-      .then((res) => this.props.toggle)
-      .catch((err) => console.log(err));
+      axios.post('/api/applicationuser/register/', user)
+      .then((res) => this.props.toggle())
+      .catch((err) => console.log(user));
     }
   }
 
@@ -72,7 +72,6 @@ export default class FormDialog extends React.Component {
         <div>
           <Dialog
             onClose={this.props.toggle}
-            onRequestClose={this.props.toggle}
             open={true}
             aria-labelledby="form-dialog-title"
           >
