@@ -1,7 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import ServiceForm from './ServiceForm';
-import { startAddService } from '../actions/services';
 import axios from 'axios';
 
 export class AddServicePage extends React.Component {
@@ -10,8 +8,8 @@ export class AddServicePage extends React.Component {
         this.state = {
             title: '',
             description: '',
-            price_From: 0,
-            price_To: 0,
+            priceFrom: 0,
+            priceTo: 0,
             city: ''
         }
     }
@@ -28,13 +26,13 @@ export class AddServicePage extends React.Component {
     }
 
     handlePriceFromChange = (e) => {
-        const price_From = e.target.value;
-        this.setState({ price_From });
+        const priceFrom = e.target.value;
+        this.setState({ priceFrom });
     }
 
     handlePriceToChange = (e) => {
-        const price_To = e.target.value;
-        this.setState({ price_To });
+        const priceTo = e.target.value;
+        this.setState({ priceTo });
     }
 
     handleCityChange = (e) => {
@@ -43,16 +41,33 @@ export class AddServicePage extends React.Component {
     }
 
     onServiceSubmit = () => {
-        const service = {
-            title: this.state.title,
-            description: this.state.description,
-            price_From: this.state.price_From,
-            price_To: this.state.price_To,
-            city: this.state.city
+        let priceFrom = 0;
+        let priceTo = 0;
+        let service = {};
+        if (this.state.priceFrom > this.state.priceTo) {
+            priceFrom = this.state.priceTo;
+            priceTo = this.state.priceFrom;
+            service = {
+                title: this.state.title,
+                description: this.state.description,
+                priceFrom: priceFrom,
+                priceTo: priceTo,
+                city: this.state.city
+            }
         }
+        else {
+            service = {
+                title: this.state.title,
+                description: this.state.description,
+                priceFrom: this.state.priceFrom,
+                priceTo: this.state.priceTo,
+                city: this.state.city
+            }
+        }
+        console.log(service);
         axios.post('/api/service/', service)
         .then((res) => {
-            this.props.history.push('/dashboard');
+            this.props.history.push('/');
         })
         .catch((err) => console.log(err));
     }
@@ -60,9 +75,14 @@ export class AddServicePage extends React.Component {
     render() {
         return (
             <div>
-                <h1>Pridėti naują paslaugą</h1>
+            <h2 align="center">Naujos paslaugos kūrimas</h2>
                 <ServiceForm
                  onSubmit={this.onServiceSubmit}
+                 title={this.state.title}
+                 description={this.state.description}
+                 priceFrom={this.state.priceFrom}
+                 priceTo={this.state.priceTo}
+                 city={this.state.city}
                  onTitleChange={this.handleTitleChange}
                  onDescriptionChange={this.handleDescriptionChange}
                  onPriceFromChange={this.handlePriceFromChange}

@@ -1,11 +1,9 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios';
 
@@ -56,16 +54,16 @@ export default class FormDialog extends React.Component {
       this.setState({ emailError: true });
     }
     else { this.setState({ emailError: false }) }
-    if(!this.state.passwordError && !this.state.usernameError && !this.state.emailError && this.state.fullNameError) {
+    if(!this.state.passwordError && !this.state.usernameError && !this.state.emailError && !this.state.fullNameError) {
       const user = {
         UserName: this.state.usernameValue,
         Password: this.state.passwordValue,
         Email: this.state.emailValue,
         FullName: this.state.fullNameValue
       }
-      axios.post('/api/applicationuser/register', user)
-      .then((res) => this.props.toggle)
-      .catch((err) => console.log(err));
+      axios.post('/api/applicationuser/register/', user)
+      .then((res) => this.props.toggle())
+      .catch((err) => console.log(user));
     }
   }
 
@@ -73,6 +71,7 @@ export default class FormDialog extends React.Component {
       return (
         <div>
           <Dialog
+            onClose={this.props.toggle}
             open={true}
             aria-labelledby="form-dialog-title"
           >

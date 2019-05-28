@@ -1,16 +1,21 @@
 import React from 'react';
 import ServiceListItem from './ServiceListItem';
-import { connect } from 'react-redux';
-import Table from '@material-ui/core/Table';
 import { TableBody } from '@material-ui/core';
 import axios from 'axios';
-import { AST_SymbolExportForeign } from 'terser';
 
 export default class ServiceList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             servicesList: [
+                {
+                    id: 1,
+                    title: 'pimpis',
+                    description: 'ziaurus dalykas',
+                    price_From: 55,
+                    price_To: 100,
+                    city: 'Kaunas'
+                }
             ]
         };
     }
@@ -23,7 +28,7 @@ export default class ServiceList extends React.Component {
         axios
         .get('api/service/')
         .then(res => {
-            this.setState({ servicesList: res.data.objects });
+            this.setState({ servicesList: res.data });
         })
         .catch(err => console.log(err));
     };

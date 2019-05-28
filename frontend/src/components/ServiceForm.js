@@ -1,11 +1,9 @@
 import React from 'react';
-import NameInput from './NameInput';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import axios from 'axios';
 
 const styles = theme => ({
     root: {
@@ -24,10 +22,10 @@ class ServiceForm extends React.Component {
         }
     }
 
+
     render() {
         return (
             <Paper className={styles.root}>
-                <h2 align="center">Naujos paslaugos kūrimas</h2>
                 {this.state.error && <p>{this.state.error}</p>}
                 <Paper className={styles.compressed}>
                     <Grid container spacing={24} justify="center">
@@ -60,28 +58,30 @@ class ServiceForm extends React.Component {
                         <Grid item xs={5}>
                             <TextField
                                 id="priceFrom-input"
-                                type="text"
+                                type="number"
+                                inputProps={{ min: "0.01", step: "0.01" }}
                                 label="Įveskite minimalią kainą"
                                 placeholder="Minimali kaina"
                                 fullWidth
                                 margin="normal"
                                 variant="outlined"
                                 InputLabelProps={{ shrink: true }}
-                                value={this.props.price_From}
+                                value={this.props.priceFrom}
                                 onChange={this.props.onPriceFromChange}
                             />
                         </Grid>
                         <Grid item xs={5}>
                             <TextField
                                 id="priceTo-input"
-                                type="text"
+                                type="number"
+                                inputProps={{ min: "0.01", step: "0.01" }}
                                 label="Įveskite maksimalią kainą"
                                 placeholder="Maksimali kaina"
                                 fullWidth
                                 margin="normal"
                                 variant="outlined"
                                 InputLabelProps={{ shrink: true }}
-                                value={this.props.price_To}
+                                value={this.props.priceTo}
                                 onChange={this.props.onPriceToChange}
                             />
                         </Grid>

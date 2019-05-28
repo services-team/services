@@ -6,13 +6,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { TableBody } from '@material-ui/core';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
 import ServiceList from './ServiceList';
-import { connect } from 'react-redux';
-
-//Pakeitimai ivyko cia
 
 
 const styles = theme => ({
