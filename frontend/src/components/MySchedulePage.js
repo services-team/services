@@ -9,6 +9,7 @@ import TimeModal from './TimeModal';
 import ScheduleTimeList from './ScheduleTimeList';
 import axios from 'axios';
 import { TableBody } from '@material-ui/core';
+import FailedTimeAddModal from './FailedTimeAddModal';
 
 export default class MySchedulePage extends React.Component {
 
@@ -25,6 +26,7 @@ export default class MySchedulePage extends React.Component {
         modalDateFrom: new Date(),
         modalDateTo: new Date(),
         index: -1,
+        timeAddModal: true,
         errorMessage: ''
     }
 
@@ -69,7 +71,10 @@ export default class MySchedulePage extends React.Component {
     handleSubmitButton = () => {
         const schedule = this.state.weeklySchedule;
         axios.put(`/api/weeklyschedule/${this.state.weeklySchedule.id}`, schedule)
-        .then((res) => this.refreshList())
+        .then((res) => {
+            this.setState({ errorMessage: res.data });
+            this.refreshList();
+        })
         .catch((err) => console.log(err))
     }
 
@@ -93,8 +98,11 @@ export default class MySchedulePage extends React.Component {
     componentDidMount() {
         axios.get('/api/weeklyschedule/myschedule/')
         .then((res) => this.setState({ weeklySchedule: res.data }, () => console.log(this.state)))
-        //.then((res) => console.log(res.data))
         .catch((err) => console.log(err));
+    }
+
+    toggleFailedModal = () => {
+        this.setState({ timeAddModal: !this.state.timeAddModal })
     }
 
     onCancelButtonClick = (id) => {
@@ -111,7 +119,7 @@ export default class MySchedulePage extends React.Component {
                                 this.setState({ weeklySchedule: schedule })
                             }
                             else {
-                                this.setState({ errorMessage: 'Šiame laike jau yra rezervacijų' });
+                                this.toggleFailedModal();
                             }
                         })
                         .catch((err) => console.log(err));
@@ -140,6 +148,11 @@ export default class MySchedulePage extends React.Component {
         })
         return (
             <div>
+                {this.state.timeAddModal ? (
+                    <FailedTimeAddModal
+                        toggle={this.toggleFailedModal}
+                        errorString={this.errorMessage} />
+                ) : null}
                 {this.state.modal ? (
                     <TimeModal
                      timeFromValue={this.state.modalDateFrom}

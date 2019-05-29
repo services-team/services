@@ -29,12 +29,15 @@ export default class Header extends React.Component {
                 Password: this.state.password
             }
             axios.post('/api/applicationuser/login', user)
-            .then((res) => localStorage.setItem('userTokken', res.data.token), () => this.reloadPage())
-            //.then((res) => console.log(res.data.token))
-            .catch((err) => console.log(err));
+            .then((res) => {localStorage.setItem('userTokken', res.data.token); this.reloadPage()})
+            .catch((err) => {console.log(err); this.reloadPage()});
     }
 
     reloadPage() {
+        axios
+        .get('/api/applicationuser/details')
+        .then((res) => this.setState({ loggedUser: res.data }))
+        .catch((err) => console.log(err));
         window.location.reload();
     }
 
@@ -74,7 +77,7 @@ export default class Header extends React.Component {
                 {this.state.modal ? (
                     <Modal toggle={this.toggle}/>
                 ) : null}
-                {localStorage.getItem('userTokken') !== 'null' ? (<div><Button onClick={() => this.setToken()}>Atsijungti</Button></div>) : this.renderLogin()}
+                {localStorage.getItem('userTokken') !== 'null' ? (<div><h6>Prisijungęs kaip {this.state.loggedUser}</h6><Button onClick={() => this.setToken()}>Atsijungti</Button></div>) : this.renderLogin()}
                 <div className="centeredHeader">
                     <ul className="header">
                         <div className="row">

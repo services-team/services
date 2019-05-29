@@ -1,6 +1,4 @@
 import React from 'react';
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
 import IconButton from '@material-ui/core/IconButton';
 
 export default class ScheduleTimeListItem extends React.Component {
