@@ -4,7 +4,7 @@ import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import MyServiceList from './MyServiceList';
+import MyCreatedServices from './MyCreatedServices';
 
 class MyServicePage extends React.Component {
 
@@ -24,7 +24,7 @@ class MyServicePage extends React.Component {
                             <TableCell align="center">Veiksmai</TableCell>
                         </TableRow>
                     </TableHead>
-                    <MyServiceList />
+                    <MyCreatedServices />
                 </Table>
                 </Paper>
             </div>

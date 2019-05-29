@@ -7,23 +7,12 @@ export default class ServiceList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: 1,
-            servicesList: [
-                {
-                    id: 1,
-                    city: 'das',
-                    subService: {
-                        id: 1,
-
-                    },
-                    startDate: '2019-05-05T07:05'
-                }
-            ],
+            servicesList: []
         };
     }
 
     componentDidMount() {
-        //this.refreshList();
+        this.refreshList();
     }
 
     cancelreservation = (id) => {

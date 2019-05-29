@@ -13,80 +13,7 @@ import { TableBody } from '@material-ui/core';
 export default class MySchedulePage extends React.Component {
 
     state = {
-        weeklySchedule: {
-            "id": 0,
-                "title": "Naujas",
-                "fkUserId": "e40d1ef3-0bb8-4a2f-a98f-3a3b7c975e88",
-                "day": [
-                    {
-                        "id": 1,
-                        "weekDay": {
-                            "id": 1,
-                            "name": "Monday"
-                        },
-                        "workTime": []
-                    },
-                    {
-                        "id": 2,
-                        "weekDay": {
-                            "id": 2,
-                            "name": "Tuesday"
-                        },
-                        "workTime": [
-                            {
-                                "id": 1,
-                                "minutesFrom": 100,
-                                "minutesTo": 200
-                            },
-                            {
-                                "id": 2,
-                                "minutesFrom": 760,
-                                "minutesTo": 955
-                            }
-                        ]
-                    },
-                    {
-                        "id": 3,
-                        "weekDay": {
-                            "id": 3,
-                            "name": "Wednesday"
-                        },
-                        "workTime": []
-                    },
-                    {
-                        "id": 4,
-                        "weekDay": {
-                            "id": 4,
-                            "name": "Thursday"
-                        },
-                        "workTime": []
-                    },
-                    {
-                        "id": 5,
-                        "weekDay": {
-                            "id": 5,
-                            "name": "Friday"
-                        },
-                        "workTime": []
-                    },
-                    {
-                        "id": 6,
-                        "weekDay": {
-                            "id": 6,
-                            "name": "Saturday"
-                        },
-                        "workTime": []
-                    },
-                    {
-                        "id": 7,
-                        "weekDay": {
-                            "id": 7,
-                            "name": "Sunday"
-                        },
-                        "workTime": []
-                    }
-                ]
-        },
+        weeklySchedule: {},
         modalHoursFrom: 0,
         modalHoursTo: 0,
         modalMinutesFrom: 0,
@@ -175,13 +102,13 @@ export default class MySchedulePage extends React.Component {
         schedule.day.map((forDay) => {
             console.log(forDay);
             for (let i = 0; i < forDay.workTime.length; i++) {
-                console.log(forDay.workTime[i])
                     if (forDay.workTime[i].id === id) {
                         axios
                         .get(`/api/worktime/checkfk/${id}`)
                         .then((res) => {
                             if (res.data === true) {
                                 forDay.workTime.splice(i, 1);
+                                this.setState({ weeklySchedule: schedule })
                             }
                             else {
                                 this.setState({ errorMessage: 'Šiame laike jau yra rezervacijų' });
@@ -192,7 +119,6 @@ export default class MySchedulePage extends React.Component {
                     }
             }
             })
-        this.setState({ weeklySchedule: schedule })
     }
 
     render() {

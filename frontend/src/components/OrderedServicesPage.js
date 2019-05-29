@@ -7,7 +7,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import OrderedServicesList from './OrderedServicesList';
-import MyServicesList from './MyServiceList';
+import MyServiceList from './MyServiceList';
 
 
 const styles = theme => ({
@@ -60,7 +60,7 @@ class SimpleTable extends React.Component {
                                 <TableCell align="center">Kaina</TableCell>
                             </TableRow>
                         </TableHead>
-                        <MyServicesList />
+                        <MyServiceList />
                     </Table>
                 </Paper>
             </div>
