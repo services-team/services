@@ -1,27 +1,30 @@
 import React from 'react';
-import MyServiceListItem from './MyServiceListItem';
+import ServiceListItem from './ServiceListItem';
 import { TableBody } from '@material-ui/core';
 import axios from 'axios';
+import moment from 'moment';
 
-export default class MyServiceList extends React.Component {
+export default class ReservationsList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            servicesList: []
+            servicesList: [],
+            startDate: '2019-05-11T11:30'
         };
     }
 
     componentDidMount() {
+        let sth = moment(this.state.startDate).add(1, 'month');
+        console.log(moment(this.state.startDate).get('year') + " " + moment(this.state.startDate).get('month') + " " + moment(this.state.startDate).get('date') + " " + moment(sth).get('month'));
         this.refreshList();
     }
 
     refreshList = () => {
         axios
-        .get('api/reservation/reservationsforme/')
+        .get('api/reservation/myreservations/')
         .then(res => {
             this.setState({ servicesList: res.data });
         })
-        //.then((res) => console.log(res))
         .catch(err => console.log(err));
     };
 
@@ -29,7 +32,7 @@ export default class MyServiceList extends React.Component {
         return (
             <TableBody>
                 {this.state.servicesList.map((service) => {
-                    return <MyServiceListItem {...service} />
+                    return <ServiceListItem key={service.id} {...service} />
                 })}
             </TableBody>
         );

@@ -4,7 +4,6 @@ import NameInput from './NameInput';
 import { Button } from '@material-ui/core';
 import Modal from './Modal';
 import axios from 'axios';
-import jwtDecode from 'jwt-decode';
 
 export default class Header extends React.Component {
     state = {

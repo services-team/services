@@ -7,6 +7,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import OrderedServicesList from './OrderedServicesList';
+import MyServicesList from './MyServiceList';
 
 
 const styles = theme => ({
@@ -32,21 +33,38 @@ class SimpleTable extends React.Component {
 
     render() {
         return (
-            <Paper className={styles.root}>
-                <h2 align="center">Mano užsakytos paslaugos</h2>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center">Pavadinimas</TableCell>
-                            <TableCell align="center">Laikas</TableCell>
-                            <TableCell align="center">Kaina</TableCell>
-                            <TableCell align="center">Miestas</TableCell>
-                            <TableCell align="center">Veiksmai</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <OrderedServicesList />
-                </Table>
-            </Paper>
+            <div>
+                <Paper className={styles.root}>
+                    <h2 align="center">Mano užsisakytos paslaugos</h2>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell align="center">Pavadinimas</TableCell>
+                                <TableCell align="center">Laikas</TableCell>
+                                <TableCell align="center">Kaina</TableCell>
+                                <TableCell align="center">Miestas</TableCell>
+                                <TableCell align="center">Veiksmai</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <OrderedServicesList />
+                    </Table>
+                </Paper>
+                <Paper className={styles.root}>
+                    <h2 align="center">Mano užrezervuotos paslaugos</h2>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell align="center">Užsakovas</TableCell>
+                                <TableCell align="center">Laikas</TableCell>
+                                <TableCell align="center">Pavadinimas</TableCell>
+                                <TableCell align="center">Kaina</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <MyServicesList />
+                    </Table>
+                </Paper>
+            </div>
+            
         );
     }
 }

@@ -7,12 +7,30 @@ export default class ServiceList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            servicesList: []
+            id: 1,
+            servicesList: [
+                {
+                    id: 1,
+                    city: 'das',
+                    subService: {
+                        id: 1,
+
+                    },
+                    startDate: '2019-05-05T07:05'
+                }
+            ],
         };
     }
 
     componentDidMount() {
-        this.refreshList();
+        //this.refreshList();
+    }
+
+    cancelreservation = (id) => {
+        axios
+        .delete(`/api/reservation/${id}`)
+        .then((res) => this.refreshList())
+        .catch((err) => console.log(err));
     }
 
     refreshList = () => {
@@ -27,7 +45,7 @@ export default class ServiceList extends React.Component {
         return (
             <TableBody>
                 {this.state.servicesList.map((service) => {
-                    return <OrderedServicesListItem key={service.id} {...service} />
+                    return <OrderedServicesListItem key={service.id} {...service} cancel={this.cancelreservation} />
                 })}
             </TableBody>
         );

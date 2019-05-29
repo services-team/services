@@ -7,16 +7,7 @@ export default class ServiceList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            servicesList: [
-                {
-                    id: 1,
-                    title: 'pimpis',
-                    description: 'ziaurus dalykas',
-                    price_From: 55,
-                    price_To: 100,
-                    city: 'Kaunas'
-                }
-            ]
+            servicesList: []
         };
     }
 

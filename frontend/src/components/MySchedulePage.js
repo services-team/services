@@ -96,7 +96,9 @@ export default class MySchedulePage extends React.Component {
         timeFrom: 0,
         timeTo: 0,
         modalDateFrom: new Date(),
-        modalDateTo: new Date()
+        modalDateTo: new Date(),
+        index: -1,
+        errorMessage: ''
     }
 
 
@@ -105,8 +107,10 @@ export default class MySchedulePage extends React.Component {
         let minutesTo = this.state.modalDateTo.getHours() * 60 + this.state.modalDateTo.getMinutes();
         const workTime = {
             minutesFrom: minutesFrom,
-            minutesTo: minutesTo            
+            minutesTo: minutesTo,
+            id: this.state.index            
         }
+        this.setState({ index: this.state.index - 1 })
         this.state.weeklySchedule.day[this.state.currentDay].workTime.push(workTime);
     }
 
@@ -166,6 +170,30 @@ export default class MySchedulePage extends React.Component {
         .catch((err) => console.log(err));
     }
 
+    onCancelButtonClick = (id) => {
+        let schedule = this.state.weeklySchedule;
+        schedule.day.map((forDay) => {
+            console.log(forDay);
+            for (let i = 0; i < forDay.workTime.length; i++) {
+                console.log(forDay.workTime[i])
+                    if (forDay.workTime[i].id === id) {
+                        axios
+                        .get(`/api/worktime/checkfk/${id}`)
+                        .then((res) => {
+                            if (res.data === true) {
+                                forDay.workTime.splice(i, 1);
+                            }
+                            else {
+                                this.setState({ errorMessage: 'Šiame laike jau yra rezervacijų' });
+                            }
+                        })
+                        .catch((err) => console.log(err));
+                        break;
+                    }
+            }
+            })
+        this.setState({ weeklySchedule: schedule })
+    }
 
     render() {
         function isEmpty(obj) {
@@ -180,7 +208,7 @@ export default class MySchedulePage extends React.Component {
         let times = this.state.weeklySchedule.day.map((item) => {
             return (
                 <TableCell  key={item.weekDay.id}>
-                    <ScheduleTimeList dayItem={item} />
+                    <ScheduleTimeList onCancelButtonClick={this.onCancelButtonClick} dayItem={item} />
                 </TableCell>
             ) 
         })
@@ -196,6 +224,7 @@ export default class MySchedulePage extends React.Component {
                      handleToChange={this.handleToChange} />
                 ) : null}
                 <Paper>
+                    {this.state.errorMessage ? <h6 className="errorMessage">{this.state.errorMessage}</h6> : null}
                     <h2 align="center">Paslaugos tiekėjo tvarkaraštis</h2>
                     <Table>
                         <TableHead>

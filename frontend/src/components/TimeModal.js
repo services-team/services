@@ -7,14 +7,25 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DatePicker from 'react-datepicker';
 import InputLabel from '@material-ui/core/InputLabel';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+    dialogPaper: {
+        minHeight: '80vh',
+        maxHeight: '80vh',
+    },
+});
 
 
-export default class TimeModal extends React.Component {
-    
+class TimeModal extends React.Component {
     render() {
+        const { classes } = this.props;
         return (
             <div>
                 <Dialog
+                    className={classes.dialogPaper}
+                    fullWidth
+                    maxWidth="xs"
                     onClose={this.props.toggle}
                     open={true}
                     aria-labelledby="form-dialog-title"    
@@ -70,3 +81,4 @@ export default class TimeModal extends React.Component {
 
 }
 
+export default withStyles(styles)(TimeModal);

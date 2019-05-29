@@ -8,10 +8,10 @@ import TextField from '@material-ui/core/TextField';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
-import moment from 'moment';
 import DatePicker from 'react-datepicker';
 import Button from '@material-ui/core/Button';
 import OrderModal from './OrderModal';
+import moment from 'moment';
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -22,109 +22,108 @@ const styles = theme => ({
         justify: 'center',
     }
 })
-
 class OrderPage extends React.Component {
     state = {
-        fullService: {
+        fullservice: {
             "id": 0,
-            "title": "Pavadinimas",
-            "description": "Aprašymas",
-            "priceFrom": 0,
-            "priceTo": 100,
-            "city": "Miestas",
-            "fkUserId": null,
-            "schedule": {
-                "id": 0,
-                "title": "Naujas",
-                "fkUserId": "e40d1ef3-0bb8-4a2f-a98f-3a3b7c975e88",
-                "day": [
+    "title": "Pavadinimas",
+    "description": "Aprašymas",
+    "priceFrom": 0,
+    "priceTo": 100,
+    "city": "Miestas",
+    "fkUserId": null,
+    "schedule": {
+        "id": 0,
+        "title": "Naujas",
+        "fkUserId": "e40d1ef3-0bb8-4a2f-a98f-3a3b7c975e88",
+        "day": [
+            {
+                "id": 1,
+                "weekDay": {
+                    "id": 1,
+                    "name": "Monday"
+                },
+                "workTime": []
+            },
+            {
+                "id": 2,
+                "weekDay": {
+                    "id": 2,
+                    "name": "Tuesday"
+                },
+                "workTime": [
                     {
                         "id": 1,
-                        "weekDay": {
-                            "id": 1,
-                            "name": "Monday"
-                        },
-                        "workTime": []
+                        "minutesFrom": 100,
+                        "minutesTo": 200
                     },
                     {
                         "id": 2,
-                        "weekDay": {
-                            "id": 2,
-                            "name": "Tuesday"
-                        },
-                        "workTime": [
-                            {
-                                "id": 1,
-                                "minutesFrom": 100,
-                                "minutesTo": 200
-                            },
-                            {
-                                "id": 2,
-                                "minutesFrom": 760,
-                                "minutesTo": 955
-                            }
-                        ]
-                    },
-                    {
-                        "id": 3,
-                        "weekDay": {
-                            "id": 3,
-                            "name": "Wednesday"
-                        },
-                        "workTime": []
-                    },
-                    {
-                        "id": 4,
-                        "weekDay": {
-                            "id": 4,
-                            "name": "Thursday"
-                        },
-                        "workTime": []
-                    },
-                    {
-                        "id": 5,
-                        "weekDay": {
-                            "id": 5,
-                            "name": "Friday"
-                        },
-                        "workTime": []
-                    },
-                    {
-                        "id": 6,
-                        "weekDay": {
-                            "id": 6,
-                            "name": "Saturday"
-                        },
-                        "workTime": []
-                    },
-                    {
-                        "id": 7,
-                        "weekDay": {
-                            "id": 7,
-                            "name": "Sunday"
-                        },
-                        "workTime": []
+                        "minutesFrom": 760,
+                        "minutesTo": 955
                     }
                 ]
             },
-            "subServices": [
-                {
-                    "id": 1,
-                    "title": "Subservice",
-                    "duration": 1,
-                    "price": 420,
-                    "serviceId": 1,
-                    "reservation": null
+            {
+                "id": 3,
+                "weekDay": {
+                    "id": 3,
+                    "name": "Wednesday"
                 },
-                {
-                    "id": 2,
-                    "title": "test",
-                    "duration": 1,
-                    "price": 420,
-                    "serviceId": 1,
-                    "reservation": null
-                }
-            ]
+                "workTime": []
+            },
+            {
+                "id": 4,
+                "weekDay": {
+                    "id": 4,
+                    "name": "Thursday"
+                },
+                "workTime": []
+            },
+            {
+                "id": 5,
+                "weekDay": {
+                    "id": 5,
+                    "name": "Friday"
+                },
+                "workTime": []
+            },
+            {
+                "id": 6,
+                "weekDay": {
+                    "id": 6,
+                    "name": "Saturday"
+                },
+                "workTime": []
+            },
+            {
+                "id": 7,
+                "weekDay": {
+                    "id": 7,
+                    "name": "Sunday"
+                },
+                "workTime": []
+            }
+        ]
+    },
+    "subServices": [
+        {
+            "id": 1,
+            "title": "Subservice",
+            "duration": 1,
+            "price": 420,
+            "serviceId": 1,
+            "reservation": null
+        },
+        {
+            "id": 2,
+            "title": "test",
+            "duration": 1,
+            "price": 420,
+            "serviceId": 1,
+            "reservation": null
+        }
+    ]
         },
         selectedService: '',
         selectedHoursFrom: '',
@@ -157,7 +156,13 @@ class OrderPage extends React.Component {
     }
 
     componentDidMount() {
-        //this.getWholeService();
+        this.getWholeService();
+    }
+
+    playWithDate = () => {
+        let date = '2019-05-31T13:55';
+        let weekDay = moment(date).format('dddd');
+        console.log(weekDay);
     }
 
     getWholeService = () => {
@@ -176,17 +181,17 @@ class OrderPage extends React.Component {
         const minute = this.state.selectedDate.getMinutes();
         let time = '';
         if(minute === 0) {
-            time = day + "/" + month + "/" + year + "T" + hour + ':' + minute + '0';
+            time = month + "/" + day + "/" + year + " " + hour + ':' + minute + '0';
         }
         else {
-            time = day + "/" + month + "/" + year + "T" + hour + ':' + minute;
+            time = month + "/" + day + "/" + year + " " + hour + ':' + minute;
         }
         const reservation = {
             serviceId: this.state.serviceId,
             subServiceId: this.state.selectedService,
             reservationTime: time
         }
-        axios.post('/api/reservations', reservation)
+        axios.post('/api/reservation', reservation )
         .then((res) => {if (res.data === "Laikas uzimtas") {
             this.setState({ message: "Laikas užimtas, prašome pasirinkti kitą ir pamėginti dar kartą" });
             this.setState({ modal: true });
@@ -212,6 +217,20 @@ class OrderPage extends React.Component {
 
     render() {
         const { classes } = this.props;
+        function isEmpty(obj) {
+            for(let key in obj) {
+                if(obj.hasOwnProperty(key))
+                    return false;
+            }
+            return true;
+        }
+        if (isEmpty(this.state.fullservice))
+            return null;
+        let entries = this.state.fullservice.subServices.map((subService) => {
+            return (
+                <MenuItem value={subService.id}>{subService.title} - {subService.price} eur</MenuItem>
+            ) 
+        })
         return (
             <Paper>
                 <h2 align="center">Paslaugos užsakymas</h2>
@@ -223,11 +242,11 @@ class OrderPage extends React.Component {
                 ) : null}
                     <div className="col-6">
                         {this.state.fullservice ? <h6>Pavadinimas : {this.state.fullservice.title}</h6> : null}
-                        {this.state.fullService ? <h6>Miestas: {this.state.fullService.city}</h6> : null}
-                        {this.state.fullService ? <h6>Aprašymas: {this.state.fullService.description}</h6> : null}
-                        {this.state.selectedService ? <h6>Paslaugos pavadinimas: {this.state.fullService.subServices[this.state.selectedService - 1].title}</h6> : null}
+                        {this.state.fullservice ? <h6>Miestas: {this.state.fullservice.city}</h6> : null}
+                        {this.state.fullservice ? <h6>Aprašymas: {this.state.fullservice.description}</h6> : null}
                         {this.state.selectedDate ? <h6>Pasirinkta data: {this.state.selectedDate.getFullYear()} {this.state.selectedDate.getMonth() + 1} {this.state.selectedDate.getDate()}</h6> : null}
                         {this.state.selectedDate ? <h6>Pasirinktas laikas: {this.state.selectedDate.getHours()}:{this.state.selectedDate.getMinutes()}{this.state.selectedDate.getMinutes()===0 ? 0 : null} </h6> : null}
+                        {this.playWithDate()}
                     </div>
                     <div className="col-6">
                         <div align="center">
@@ -240,11 +259,7 @@ class OrderPage extends React.Component {
                                     value={this.state.selectedService}
                                     onChange={this.handleChange}
                                 >
-                                    {this.state.fullService.subServices.map((subService) => {
-                                        return (
-                                            <MenuItem value={subService.id}>{subService.title}</MenuItem>
-                                        )
-                                    })}
+                                    {entries}
                                 </Select>
                             </FormControl>
                         </div>
